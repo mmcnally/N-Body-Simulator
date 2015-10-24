@@ -70,46 +70,46 @@ def update_info(step, bodies):
         print(s)
     print()
 
-def loop(bodies):
-    """([Body])
-
-    Never returns; loops through the simulation, updating the
-    positions of all the provided bodies.
-    """
-    # TODO implmement Barnes-Hut grouping algorithm at start of every loop
-    # quad_tree = bh_group()
-
-    timestep = 24*3600  # One day
-
-    step = 1
-    while True:
-        update_info(step, bodies)
-        step += 1
-
-        force = {}
-        for body in bodies:
-            # Add up all of the forces exerted on 'body'.
-            total_fx = total_fy = 0.0
-            for other in bodies:
-                # Don't calculate the body's attraction to itself
-                if body is other: # TODO instead of looping through every body this loop should go through all the Barnes-Hut groups, recursing appropriately
-                    continue
-                fx, fy = body.attraction(other)
-                total_fx += fx
-                total_fy += fy
-
-            # Record the total force exerted.
-            force[body] = (total_fx, total_fy)
-
-        # Update velocities based upon on the force.
-        for body in bodies:
-            fx, fy = force[body]
-            body.vx += fx / body.mass * timestep
-            body.vy += fy / body.mass * timestep
-
-            # Update positions
-            body.px += body.vx * timestep
-            body.py += body.vy * timestep
+# def loop(bodies):
+#     """([Body])
+# 
+#     Never returns; loops through the simulation, updating the
+#     positions of all the provided bodies.
+#     """
+#     # TODO implmement Barnes-Hut grouping algorithm at start of every loop
+#     # quad_tree = bh_group()
+# 
+#     timestep = 24*3600  # One day
+# 
+#     step = 1
+#     while True:
+#         update_info(step, bodies)
+#         step += 1
+# 
+#         force = {}
+#         for body in bodies:
+#             # Add up all of the forces exerted on 'body'.
+#             total_fx = total_fy = 0.0
+#             for other in bodies:
+#                 # Don't calculate the body's attraction to itself
+#                 if body is other: # TODO instead of looping through every body this loop should go through all the Barnes-Hut groups, recursing appropriately
+#                     continue
+#                 fx, fy = body.attraction(other)
+#                 total_fx += fx
+#                 total_fy += fy
+# 
+#             # Record the total force exerted.
+#             force[body] = (total_fx, total_fy)
+# 
+#         # Update velocities based upon on the force.
+#         for body in bodies:
+#             fx, fy = force[body]
+#             body.vx += fx / body.mass * timestep
+#             body.vy += fy / body.mass * timestep
+# 
+#             # Update positions
+#             body.px += body.vx * timestep
+#             body.py += body.vy * timestep
             
             
 def update_bodies():
@@ -175,7 +175,7 @@ def build_bodies():
     earth.vx = 1
     earth.vy = 2
     earth.color = 'rgba(113, 170, 255, 1.0)'
-
+        
     all_bodies.append(sun)
     all_bodies.append(earth)
     # Venus parameters taken from
