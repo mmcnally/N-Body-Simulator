@@ -203,9 +203,5 @@ def get_bodies():
     return all_bodies
 
 def update():
-    if len(all_bodies) > 0:
-        # bodies have been initialized
-        update_bodies()
-    else:
-        # need to create the bodies
-        build_bodies()
+    update_bodies()
+    
