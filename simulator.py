@@ -76,6 +76,8 @@ def loop(bodies):
     Never returns; loops through the simulation, updating the
     positions of all the provided bodies.
     """
+    # TODO implmement Barnes-Hut grouping algorithm at start of every loop
+
     timestep = 24*3600  # One day
 
     for body in bodies:
@@ -93,7 +95,7 @@ def loop(bodies):
             total_fx = total_fy = 0.0
             for other in bodies:
                 # Don't calculate the body's attraction to itself
-                if body is other:
+                if body is other: # TODO instead of looping through every body this loop should go through all the Barnes-Hut groups, recursing appropriately
                     continue
                 fx, fy = body.attraction(other)
                 total_fx += fx
