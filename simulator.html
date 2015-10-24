@@ -17,15 +17,16 @@ body {
 <script>
 
 var spacetime = d3.select('body');
-var width = $(window).width(),
-    height = $(window).height(),
-    radius = Math.min(width, height);
+var width = $(window).width()
+var height = $(window).height()
 
 // Space
 var svg = spacetime.append("svg")
+  .attr("id","universe")
   .attr("width", width)
   .attr("height", height)
   .append("g")
+    .attr("id","observedUniverse")
     .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
 $.getJSON( "/get_all_bodies", function( data ) {
@@ -39,15 +40,24 @@ $.getJSON( "/get_all_bodies", function( data ) {
   }
 });
 
-// 30 fps
+
 setInterval(function () {
       $.getJSON( "/update_all_bodies/"+$(window).width()+"/"+$(window).height(), function( data ) {
         for (var i=0;i<data.length;i++){
           $("#"+data[i].name).attr("transform", "translate(" + - data[i].px + "," + - data[i].py + ")");
         }
       });
-}, 32);
+}, 32); // 30 fps = 32, 60 fps = 16
+</script>
 
+<script>
+  $(window).resize(function() {
+    var width = $(window).width();
+    var height = $(window).height();
 
+    $("#universe").attr("width",width);
+    $("#universe").attr("height",height);
 
+    $("#observedUniverse").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+  })
 </script>
