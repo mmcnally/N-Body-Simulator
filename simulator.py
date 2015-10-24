@@ -197,6 +197,7 @@ def add_body(name, mass, size, px, py, vx, vy, color):
     bod.vx = vx
     bod.vy = vy
     bod.color = color
+    all_bodies.append(bod)
 
 def get_bodies():
     return all_bodies
