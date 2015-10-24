@@ -22,24 +22,6 @@ var width = 960,
     height = 500,
     radius = Math.min(width, height);
 
-// The gravitational constant G
-var G = 6.67428*Math.pow(10,-11);
-
-// Assumed scale: 100 pixels = 1AU.
-var AU = (149.6*Math.pow(10,6) * 1000);
-var SCALE = 250 / AU;
-
-//var sunBody = new Body('sun',(1.98892 * Math.pow(10,30)),[0,0],[0,0])
-//var earthBody = new Body('earth',(5.9742 * Math.pow(10,24)),[0,0],[0,0])
-
-var sunBody = new Body('sun',100,[0,0],[0,0],'rgba(255, 204, 0, 1.0)')
-var earthBody = new Body('earth',10,[200,0],[0,0], 'rgba(113, 170, 255, 1.0)')
-
-var bodies = [
-  sunBody,earthBody
-]
-console.log(bodies);
-
 // Space
 var svg = spacetime.append("svg")
   .attr("width", width)
@@ -47,30 +29,41 @@ var svg = spacetime.append("svg")
   .append("g")
     .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-for (var i=0;i<bodies.length;i++){
+$.getJSON( "/get_all_bodies", function( data ) {
+  console.log('asdf'+data);
+  /*var items = [];
+  $.each( data, function( key, val ) {
+    items.push( "<li id='" + key + "'>" + val + "</li>" );
+  });
+
+  $( "<ul/>", {
+    "class": "my-new-list",
+    html: items.join( "" )
+  }).appendTo( "body" );*/
+});
+
+/*for (var i=0;i<bodies.length;i++){
   svg.append("circle")
     .attr("class",bodies[i].name)
     .attr("r", bodies[i].radius)
     .attr("transform", "translate(" + - bodies[i].pos[0] + "," + - bodies[i].pos[1] + ")")
     .style("fill", bodies[i].color);
-}
+}*/
 
 // Update the clock every second
 setInterval(function () {
 
   d3.transition().tween("orbit", function () {
     return function (t) {
-      // Animate Earth orbit position
-      d3.select(".earthOrbitPosition")
-        .attr("d", earthOrbitPosition.endAngle(interpolateEarthOrbitPosition(t)));
+      //for (var i=0;i<bodies.length;i++){
 
-      // Transition Earth
-      d3.select(".earth")
-        .attr("transform", "translate(" + radii.earthOrbit * Math.sin(interpolateEarthOrbitPosition(t) - earthOrbitPosition.startAngle()()) + "," + -radii.earthOrbit * Math.cos(interpolateEarthOrbitPosition(t) - earthOrbitPosition.startAngle()()) + ")");
+          //d3.select("."+bodies[i].name)
+          //  .attr("transform", "translate(" + - bodies[i].pos[0] + "," + - bodies[i].pos[1] + ")")
 
-      };
-  });
-}, 1000);
+        //}
+      }
+    });
+}, 16);
 
 
 
