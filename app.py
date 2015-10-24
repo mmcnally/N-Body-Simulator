@@ -13,9 +13,9 @@ import json
 app = Flask(__name__, static_url_path='/Users/Computer/Copy/Hackathon/N-Body-Simulator')
 
 
-@app.route('/update_all_bodies')
-def update_all_bodies():
-    simulator.update()
+@app.route('/update_all_bodies/<int:width>/<int:height>')
+def update_all_bodies(width,height):
+    simulator.update(width,height)
     bodies = simulator.get_bodies()
 
     all_bodies_update = []
