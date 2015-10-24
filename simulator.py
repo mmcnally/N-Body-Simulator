@@ -217,6 +217,9 @@ def add_body(name, mass, size, px, py, vx, vy, color):
 
 def get_bodies():
     return all_bodies
+    
+def reset():
+    build_bodies()
 
 def update():
     update_bodies()
