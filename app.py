@@ -20,14 +20,18 @@ def update_all_bodies():
 
     all_bodies_update = []
     for body in bodies:
+        print body.name
         all_bodies_update.append({"name":body.name, "px":body.px, "py":body.py})
 
     print len(all_bodies_update)
     return json.dumps(all_bodies_update)
 
+
 @app.route('/get_all_bodies')
 def get_all_bodies():
-    simulator.build_bodies()
+    if len(simulator.get_bodies())==0:
+        simulator.build_bodies()
+        
     bodies = simulator.get_bodies()
 
     all_bodies = []

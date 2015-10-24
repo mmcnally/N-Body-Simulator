@@ -29,7 +29,6 @@ var svg = spacetime.append("svg")
     .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
 $.getJSON( "/get_all_bodies", function( data ) {
-  // console.log(data);
   for (var i=0;i<data.length;i++){
     svg.append("circle")
       .attr("id",data[i].name)
@@ -41,20 +40,20 @@ $.getJSON( "/get_all_bodies", function( data ) {
 });
 
 // Update the clock every second
-//setInterval(function () {
+setInterval(function () {
 
-  d3.transition().tween("orbit", function () {
-    return function (t) {
+  /*d3.transition().tween("orbit", function () {
+    return function (t) {*/
       $.getJSON( "/update_all_bodies", function( data ) {
         console.log(data);
-        //for (var i=0;i<data.length;i++){
+        for (var i=0;i<data.length;i++){
           //console.log($("#"+data[i].name));
-          //$("#"+data[i].name).attr("transform", "translate(" + - data[i].px + "," + - data[i].py + ")");
-        //}
+          $("#"+data[i].name).attr("transform", "translate(" + - data[i].px + "," + - data[i].py + ")");
+        }
       });
-    }
-  });
-//}, 1000);
+    /*}
+  });*/
+}, 16);
 
 
 

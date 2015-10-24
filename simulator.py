@@ -50,7 +50,7 @@ class Body():
                              % (self.name, other.name))
 
         # Compute the force of attraction
-        f = G * self.mass * other.mass / (d**2)
+        f = self.mass * other.mass / (d**2)
 
         # Compute the direction of the force.
         theta = math.atan2(dy, dx)
@@ -108,17 +108,9 @@ def loop(bodies):
             body.vy += fy / body.mass # * timestep
 
             # Update positions
-<<<<<<< HEAD
             body.px += body.vx # * timestep
             body.py += body.vy # * timestep
 
-
-=======
-            body.px += body.vx * timestep
-            body.py += body.vy * timestep
-
-
->>>>>>> 8aa830fd1cc175253e8f0a3d1b99f387b58da2d0
 def update_bodies():
     # TODO implmement Barnes-Hut grouping algorithm at start of every loop
     # quad_tree = bh_group()
@@ -126,11 +118,6 @@ def update_bodies():
     timestep = 24*3600  # One day
 
     step = 1
-<<<<<<< HEAD
-
-=======
-
->>>>>>> 8aa830fd1cc175253e8f0a3d1b99f387b58da2d0
     # update_info(step)
     step += 1
 
@@ -166,9 +153,9 @@ def build_bodies():
     sun.name = 'Sun'
     # sun.mass = 1.98892 * 10**30
     # sun.size = sun.mass / (10 ** 28)
-    sun.mass = 1.98892 * 10**30
+    sun.mass = 1988.92
     sun.size = 100
-    sun.px = 0
+    sun.px = 1
     sun.py = 0
     sun.vx = 0
     sun.vy = 0
@@ -178,7 +165,7 @@ def build_bodies():
     earth.name = 'Earth'
     # earth.mass = 5.9742 * 10**24
     # earth.size = earth.mass / (10 ** 28)
-    earth.mass = 5.9742 * 10**24
+    earth.mass = 5.9742
     earth.size = 5
     # earth.px = -1*AU
     earth.px = -200
