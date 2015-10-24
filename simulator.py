@@ -80,7 +80,7 @@ def loop(bodies):
     positions of all the provided bodies.
     """
     # TODO implmement Barnes-Hut grouping algorithm at start of every loop
-    quad_tree = b_h_group()
+    # quad_tree = bh_group()
 
     timestep = 24*3600  # One day
 
@@ -121,7 +121,8 @@ def loop(bodies):
             body.dot(body.size)
 
 
-def main():
+def run():
+    print "asdfasd"
     # bgcolor('black')
     sun = Body()
     sun.name = 'Sun'
@@ -149,6 +150,3 @@ def main():
     venus.pencolor('red')
 
     loop([sun, earth, venus])
-
-if __name__ == '__main__':
-    main()

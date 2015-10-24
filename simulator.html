@@ -55,9 +55,7 @@ for (var i=0;i<bodies.length;i++){
 }
 
 // Update the clock every second
-/*setInterval(function () {
-  now = new Date();
-
+setInterval(function () {
   var interpolateEarthOrbitPosition = d3.interpolate(earthOrbitPosition.endAngle()(), (2 * Math.PI * d3.time.hours(d3.time.year.floor(now), now).length / d3.time.hours(d3.time.year.floor(now), d3.time.year.ceil(now)).length));
 
   d3.transition().tween("orbit", function () {
@@ -72,7 +70,7 @@ for (var i=0;i<bodies.length;i++){
 
       };
   });
-}, 1000);*/
+}, 1000);
 
 
 
