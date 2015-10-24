@@ -184,8 +184,5 @@ def get_bodies():
 def reset():
     build_bodies()
 
-def update():
+def update(window_width, window_height):
     update_bodies()
-
-# def update(window_width, window_height):
-#     update_bodies()
