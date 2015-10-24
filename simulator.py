@@ -107,7 +107,49 @@ def loop(bodies):
             # Update positions
             body.px += body.vx * timestep
             body.py += body.vy * timestep
+            
+            
+            
+def singleloop(bodies):
+    """([Body])
 
+    Never returns; loops through the simulation, updating the
+    positions of all the provided bodies.
+    """
+    # TODO implmement Barnes-Hut grouping algorithm at start of every loop
+    # quad_tree = bh_group()
+
+    timestep = 24*3600  # One day
+
+    step = 1
+    update_info(step, bodies)
+    step += 1
+
+    force = {}
+    for body in bodies:
+        # Add up all of the forces exerted on 'body'.
+        total_fx = total_fy = 0.0
+        for other in bodies:
+            # Don't calculate the body's attraction to itself
+            if body is other: # TODO instead of looping through every body this loop should go through all the Barnes-Hut groups, recursing appropriately
+                continue
+            fx, fy = body.attraction(other)
+            total_fx += fx
+            total_fy += fy
+
+        # Record the total force exerted.
+        force[body] = (total_fx, total_fy)
+
+    # Update velocities based upon on the force.
+    for body in bodies:
+        fx, fy = force[body]
+        body.vx += fx / body.mass * timestep
+        body.vy += fy / body.mass * timestep
+
+        # Update positions
+        body.px += body.vx * timestep
+        body.py += body.vy * timestep
+        
 
 def run():
     sun = Body()
@@ -133,4 +175,6 @@ def run():
     # venus.px = 0.723 * AU
     # venus.vy = -35.02 * 1000
 
-    loop([sun, earth])
+    singleloop([sun, earth])
+    return [sun.px, sun.py, earth.px, earth.py]
+    # loop([sun, earth])

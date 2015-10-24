@@ -21,7 +21,10 @@ def add_numbers():
 
 @app.route('/runSimulation')
 def runSimulation():
-    simulator.run()
+    a = simulator.run()
+    print "in route"
+    print(a)
+    return a
 
 @app.route('/')
 def index():
