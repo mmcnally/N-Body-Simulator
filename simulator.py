@@ -112,7 +112,7 @@ def loop(bodies):
             body.py += body.vy * timestep
             
             
-def updateBodies():
+def update_bodies():
     # TODO implmement Barnes-Hut grouping algorithm at start of every loop
     # quad_tree = bh_group()
 
@@ -120,7 +120,7 @@ def updateBodies():
 
     step = 1
     
-    update_info(step)
+    # update_info(step)
     step += 1
 
     force = {}
@@ -193,7 +193,7 @@ def get_bodies():
 def update():
     if len(all_bodies) > 0:
         # bodies have been initialized
-        updateBodies()
+        update_bodies()
     else:
         # need to create the bodies
-        buildBodies()
+        build_bodies()
