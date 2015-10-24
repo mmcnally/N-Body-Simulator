@@ -32,6 +32,7 @@ $.getJSON( "/get_all_bodies", function( data ) {
   // console.log(data);
   for (var i=0;i<data.length;i++){
     svg.append("circle")
+      .attr("id",data[i].name)
       .attr("class",data[i].name)
       .attr("r", data[i].size)
       .attr("transform", "translate(" + - data[i].px + "," + - data[i].py + ")")
@@ -42,12 +43,16 @@ $.getJSON( "/get_all_bodies", function( data ) {
 // Update the clock every second
 setInterval(function () {
 
-  /*d3.transition().tween("orbit", function () {
+  d3.transition().tween("orbit", function () {
     return function (t) {
       $.getJSON( "/update_all_bodies", function( data ) {
+        console.log(data[1]);
+        for (var i=0;i<data.length;i++){
+          $("#"+data[i].name).attr("transform", "translate(" + - data[i].px + "," + - data[i].py + ")")
+        }
       });
     }
-  });*/
+  });
 }, 16);
 
 

@@ -15,7 +15,7 @@ app = Flask(__name__, static_url_path='/Users/Computer/Copy/Hackathon/N-Body-Sim
 
 @app.route('/update_all_bodies')
 def update_all_bodies():
-    simulator.loop_once()
+    simulator.update()
     bodies = simulator.get_bodies()
 
     all_bodies_update = []
