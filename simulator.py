@@ -193,6 +193,7 @@ def get_bodies():
 def update():
     if len(all_bodies) > 0:
         # bodies have been initialized
-        updateBodies
+        updateBodies()
     else:
+        # need to create the bodies
         buildBodies()
