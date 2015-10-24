@@ -186,6 +186,17 @@ def build_bodies():
     # venus.size = venus.mass / (10 ** 28)
     # venus.px = 0.723 * AU
     # venus.vy = -35.02 * 1000
+    
+def add_body(name, mass, size, px, py, vx, vy, color):
+    bod = Body()
+    bod.name = name
+    bod.mass = mass
+    bod.size = size
+    bod.px = px
+    bod.py = py
+    bod.vx = vx
+    bod.vy = vy
+    bod.color = color
 
 def get_bodies():
     return all_bodies
