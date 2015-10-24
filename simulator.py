@@ -115,8 +115,10 @@ def loop(bodies):
 def build_bodies():
     sun = Body()
     sun.name = 'Sun'
+    # sun.mass = 1.98892 * 10**30
+    # sun.size = sun.mass / (10 ** 28)
     sun.mass = 1.98892 * 10**30
-    sun.size = sun.mass / (10 ** 28)
+    sun.size = 100
     sun.px = 0
     sun.py = 0
     sun.vx = 0
@@ -125,12 +127,15 @@ def build_bodies():
 
     earth = Body()
     earth.name = 'Earth'
+    # earth.mass = 5.9742 * 10**24
+    # earth.size = earth.mass / (10 ** 28)
     earth.mass = 5.9742 * 10**24
-    earth.size = earth.mass / (10 ** 28)
-    earth.px = -1*AU
+    earth.size = 5
+    # earth.px = -1*AU
+    earth.px = -200
     earth.py = 0
-    earth.vx = 0
-    earth.vy = 29.783 * 1000
+    earth.vx = 1
+    earth.vy = 2
     earth.color = 'rgba(113, 170, 255, 1.0)'
 
     all_bodies.append(sun)

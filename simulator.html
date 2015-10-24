@@ -31,6 +31,13 @@ var svg = spacetime.append("svg")
 
 $.getJSON( "/get_all_bodies", function( data ) {
   console.log(data);
+  for (var i=0;i<data.length;i++){
+    svg.append("circle")
+      .attr("class",data[i].name)
+      .attr("r", data[i].size)
+      .attr("transform", "translate(" + - data[i].px + "," + - data[i].py + ")")
+      .style("fill", data[i].color);
+  }
   /*var items = [];
   $.each( data, function( key, val ) {
     items.push( "<li id='" + key + "'>" + val + "</li>" );
