@@ -104,23 +104,23 @@ def loop(bodies):
         # Update velocities based upon on the force.
         for body in bodies:
             fx, fy = force[body]
-            body.vx += fx / body.mass * timestep
-            body.vy += fy / body.mass * timestep
+            body.vx += fx / body.mass # * timestep
+            body.vy += fy / body.mass # * timestep
 
             # Update positions
-            body.px += body.vx * timestep
-            body.py += body.vy * timestep
-            
-            
-def updateBodies():
+            body.px += body.vx # * timestep
+            body.py += body.vy # * timestep
+
+
+def update_bodies():
     # TODO implmement Barnes-Hut grouping algorithm at start of every loop
     # quad_tree = bh_group()
 
     timestep = 24*3600  # One day
 
     step = 1
-    
-    update_info(step)
+
+    # update_info(step)
     step += 1
 
     force = {}
@@ -141,12 +141,12 @@ def updateBodies():
     # Update velocities based upon on the force.
     for body in all_bodies:
         fx, fy = force[body]
-        body.vx += fx / body.mass * timestep
-        body.vy += fy / body.mass * timestep
+        body.vx += fx / body.mass # * timestep
+        body.vy += fy / body.mass # * timestep
 
         # Update positions
-        body.px += body.vx * timestep
-        body.py += body.vy * timestep
+        body.px += body.vx # * timestep
+        body.py += body.vy # * timestep
 
 
 
@@ -191,9 +191,9 @@ def get_bodies():
     return all_bodies
 
 def update():
-    if len(all_bodies) > 0:
+    # if len(all_bodies) > 0:
         # bodies have been initialized
-        updateBodies()
-    else:
+        update_bodies()
+    # else:
         # need to create the bodies
-        buildBodies()
+        # build_bodies()
