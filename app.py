@@ -20,10 +20,8 @@ def update_all_bodies():
 
     all_bodies_update = []
     for body in bodies:
-        print body.name
         all_bodies_update.append({"name":body.name, "px":body.px, "py":body.py})
 
-    print len(all_bodies_update)
     return json.dumps(all_bodies_update)
 
 
@@ -31,7 +29,7 @@ def update_all_bodies():
 def get_all_bodies():
     if len(simulator.get_bodies())==0:
         simulator.build_bodies()
-        
+
     bodies = simulator.get_bodies()
 
     all_bodies = []
@@ -42,7 +40,6 @@ def get_all_bodies():
 
 @app.route('/<path:path>')
 def index(path):
-    print "asdf"
     return send_from_directory('',path)
 
 if __name__ == '__main__':

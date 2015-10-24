@@ -17,8 +17,8 @@ body {
 <script>
 
 var spacetime = d3.select('body');
-var width = 960,
-    height = 500,
+var width = $(window).width(),
+    height = $(window).height(),
     radius = Math.min(width, height);
 
 // Space
@@ -39,20 +39,13 @@ $.getJSON( "/get_all_bodies", function( data ) {
   }
 });
 
-// Update the clock every second
+// 30 fps
 setInterval(function () {
-
-  /*d3.transition().tween("orbit", function () {
-    return function (t) {*/
       $.getJSON( "/update_all_bodies", function( data ) {
-        console.log(data);
         for (var i=0;i<data.length;i++){
-          //console.log($("#"+data[i].name));
           $("#"+data[i].name).attr("transform", "translate(" + - data[i].px + "," + - data[i].py + ")");
         }
       });
-    /*}
-  });*/
 }, 32);
 
 

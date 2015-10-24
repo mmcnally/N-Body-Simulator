@@ -70,48 +70,6 @@ def update_info(step, bodies):
         print(s)
     print()
 
-# def loop(bodies):
-#     """([Body])
-#
-#     Never returns; loops through the simulation, updating the
-#     positions of all the provided bodies.
-#     """
-#     # TODO implmement Barnes-Hut grouping algorithm at start of every loop
-#     # quad_tree = bh_group()
-#
-#     timestep = 24*3600  # One day
-#
-#     step = 1
-#     while True:
-#         update_info(step, bodies)
-#         step += 1
-#
-#         force = {}
-#         for body in bodies:
-#             # Add up all of the forces exerted on 'body'.
-#             total_fx = total_fy = 0.0
-#             for other in bodies:
-#                 # Don't calculate the body's attraction to itself
-#                 if body is other: # TODO instead of looping through every body this loop should go through all the Barnes-Hut groups, recursing appropriately
-#                     continue
-#                 fx, fy = body.attraction(other)
-#                 total_fx += fx
-#                 total_fy += fy
-#
-#             # Record the total force exerted.
-#             force[body] = (total_fx, total_fy)
-#
-#         # Update velocities based upon on the force.
-#         for body in bodies:
-#             fx, fy = force[body]
-#             body.vx += fx / body.mass * timestep
-#             body.vy += fy / body.mass * timestep
-#
-#             # Update positions
-#             body.px += body.vx * timestep
-#             body.py += body.vy * timestep
-
-
 def update_bodies():
     # TODO implmement Barnes-Hut grouping algorithm at start of every loop
     # quad_tree = bh_group()
@@ -120,7 +78,6 @@ def update_bodies():
 
     step = 1
 
-    # update_info(step)
     step += 1
 
     force = {}
@@ -163,7 +120,7 @@ def build_bodies():
     # sun.vx = 0
     # sun.vy = 0
     # sun.color = 'rgba(255, 204, 0, 1.0)'
-    
+
     add_body('Earth', 5.9742, 5, -325, 0, 0, 1, 'rgba(140, 98, 2, 1.0)')
 
     # earth = Body()
@@ -223,12 +180,12 @@ def add_body(name, mass, size, px, py, vx, vy, color):
 
 def get_bodies():
     return all_bodies
-    
+
 def reset():
     build_bodies()
 
 def update():
     update_bodies()
-    
+
 # def update(window_width, window_height):
 #     update_bodies()
