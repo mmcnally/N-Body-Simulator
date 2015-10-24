@@ -112,64 +112,6 @@ def build_bodies():
     add_body('Sun', 1988.92, 100, 'rgba(255, 204, 0, 1.0)')
     add_body('Earth', 5.9742, 5,'rgba(98,100,255, 1.0)', px=-220, vy=3)
     add_body('Venus', 10.8685, 7, 'rgba(140, 98, 2, 1.0)', px=300, vy=2.5)
-    
-    # add_body('Sun', 1988.92, 100, 'rgba(255, 204, 0, 1.0)')
-    # # sun = Body()
-    # # sun.name = 'Sun'
-    # # # sun.mass = 1.98892 * 10**30
-    # # # sun.size = sun.mass / (10 ** 28)
-    # # sun.mass = 1988.92
-    # # sun.size = 100
-    # # sun.px = 0
-    # # sun.py = 0
-    # # sun.vx = 0
-    # # sun.vy = 0
-    # # sun.color = 'rgba(255, 204, 0, 1.0)'
-    # 
-    # add_body('Earth', 5.9742, 5, 'rgba(140, 98, 2, 1.0)', px=-325, vy=1)
-    # 
-    # # earth = Body()
-    # # earth.name = 'Earth'
-    # # # earth.mass = 5.9742 * 10**24
-    # # # earth.size = earth.mass / (10 ** 28)
-    # # earth.mass = 5.9742
-    # # earth.size = 5
-    # # # earth.px = -1*AU
-    # # earth.px = -200
-    # # earth.py = 0
-    # # earth.vx = 1
-    # # earth.vy = 2
-    # # earth.color = 'rgba(113, 170, 255, 1.0)'
-    # 
-    # add_body('Venus', 10.8685, 7, 'rgba(140, 98, 2, 1.0)', px=300, vy=1)
-    # 
-    # # # Venus parameters taken from
-    # # # http://nssdc.gsfc.nasa.gov/planetary/factsheet/venusfact.html
-    # # venus = Body()
-    # # venus.name = 'Venus'
-    # # venus.mass = 10.8685
-    # # venus.size = 7
-    # # venus.px = -325
-    # # venus.py = 0
-    # # venus.vx = 0
-    # # venus.vy = 1
-    # # venus.color = 'rgba(140, 98, 2, 1.0)'
-    # 
-    # add_body('moon', .02, 1, 'rgba(140, 98, 2, 1.0)', px=100, py=100)
-    # 
-    # # venus = Body()
-    # # venus.name = 'moon'
-    # # venus.mass = .02
-    # # venus.size = 1
-    # # venus.px = 100
-    # # venus.py = 100
-    # # venus.vx = 0
-    # # venus.vy = 0
-    # # venus.color = 'rgba(140, 98, 2, 1.0)'
-    # 
-    # # all_bodies.append(sun)
-    # # all_bodies.append(earth)
-    # # all_bodies.append(venus)
 
 def add_body(name, mass, size, color, px=0, py=0, vx=0, vy=0):
     bod = Body()
