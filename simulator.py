@@ -111,7 +111,7 @@ def update_info(step, bodies):
 #             body.px += body.vx * timestep
 #             body.py += body.vy * timestep
             
-            
+
 def update_bodies():
     # TODO implmement Barnes-Hut grouping algorithm at start of every loop
     # quad_tree = bh_group()
@@ -119,7 +119,7 @@ def update_bodies():
     timestep = 24*3600  # One day
 
     step = 1
-    
+
     # update_info(step)
     step += 1
 
@@ -141,12 +141,12 @@ def update_bodies():
     # Update velocities based upon on the force.
     for body in all_bodies:
         fx, fy = force[body]
-        body.vx += fx / body.mass * timestep
-        body.vy += fy / body.mass * timestep
+        body.vx += fx / body.mass # * timestep
+        body.vy += fy / body.mass # * timestep
 
         # Update positions
-        body.px += body.vx * timestep
-        body.py += body.vy * timestep
+        body.px += body.vx # * timestep
+        body.py += body.vy # * timestep
 
 
 
@@ -186,7 +186,7 @@ def build_bodies():
     # venus.size = venus.mass / (10 ** 28)
     # venus.px = 0.723 * AU
     # venus.vy = -35.02 * 1000
-    
+
 def add_body(name, mass, size, px, py, vx, vy, color):
     bod = Body()
     bod.name = name
@@ -204,4 +204,3 @@ def get_bodies():
 
 def update():
     update_bodies()
-    

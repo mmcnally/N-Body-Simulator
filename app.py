@@ -22,6 +22,7 @@ def update_all_bodies():
     for body in bodies:
         all_bodies_update.append({"name":body.name, "px":body.px, "py":body.py})
 
+    print len(all_bodies_update)
     return json.dumps(all_bodies_update)
 
 @app.route('/get_all_bodies')
