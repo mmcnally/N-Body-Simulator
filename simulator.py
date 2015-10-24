@@ -1,5 +1,8 @@
 import math
 
+# bodies
+all_bodies = []
+
 # The gravitational constant G
 G = 6.67428e-11
 
@@ -109,11 +112,15 @@ def loop(bodies):
             body.py += body.vy * timestep
 
 
-def run():
+def build_bodies():
     sun = Body()
     sun.name = 'Sun'
     sun.mass = 1.98892 * 10**30
     sun.size = sun.mass / (10 ** 28)
+    sun.px = 0
+    sun.py = 0
+    sun.vx = 0
+    sun.vy = 0
     sun.color = 'rgba(255, 204, 0, 1.0)'
 
     earth = Body()
@@ -121,9 +128,13 @@ def run():
     earth.mass = 5.9742 * 10**24
     earth.size = earth.mass / (10 ** 28)
     earth.px = -1*AU
+    earth.py = 0
+    earth.vx = 0
     earth.vy = 29.783 * 1000
-    sun.color = 'rgba(113, 170, 255, 1.0)'
+    earth.color = 'rgba(113, 170, 255, 1.0)'
 
+    all_bodies.append(sun)
+    all_bodies.append(earth)
     # Venus parameters taken from
     # http://nssdc.gsfc.nasa.gov/planetary/factsheet/venusfact.html
     # venus = Body()
@@ -133,4 +144,8 @@ def run():
     # venus.px = 0.723 * AU
     # venus.vy = -35.02 * 1000
 
-    loop([sun, earth])
+def get_bodies():
+    return all_bodies
+
+def loop():
+    loop(all_bodies)
