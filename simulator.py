@@ -157,7 +157,7 @@ def build_bodies():
     # sun.size = sun.mass / (10 ** 28)
     sun.mass = 1988.92
     sun.size = 100
-    sun.px = 1
+    sun.px = 0
     sun.py = 0
     sun.vx = 0
     sun.vy = 0
@@ -176,16 +176,32 @@ def build_bodies():
     earth.vy = 2
     earth.color = 'rgba(113, 170, 255, 1.0)'
 
-    all_bodies.append(sun)
-    all_bodies.append(earth)
+
     # Venus parameters taken from
     # http://nssdc.gsfc.nasa.gov/planetary/factsheet/venusfact.html
-    # venus = Body()
-    # venus.name = 'Venus'
-    # venus.mass = 4.8685 * 10**24
-    # venus.size = venus.mass / (10 ** 28)
-    # venus.px = 0.723 * AU
-    # venus.vy = -35.02 * 1000
+    venus = Body()
+    venus.name = 'Venus'
+    venus.mass = 10.8685
+    venus.size = 7
+    venus.px = -325
+    venus.py = 0
+    venus.vx = 0
+    venus.vy = 1
+    venus.color = 'rgba(140, 98, 2, 1.0)'
+
+    venus = Body()
+    venus.name = 'moon'
+    venus.mass = .02
+    venus.size = 1
+    venus.px = 100
+    venus.py = 100
+    venus.vx = 0
+    venus.vy = 0
+    venus.color = 'rgba(140, 98, 2, 1.0)'
+
+    all_bodies.append(sun)
+    all_bodies.append(earth)
+    all_bodies.append(venus)
 
 def add_body(name, mass, size, px, py, vx, vy, color):
     bod = Body()
