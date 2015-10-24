@@ -108,9 +108,11 @@ def update_bodies():
 
 
 def build_bodies():
-    add_body('Sun', 1988.92, 100, 0, 0, 0, 0, 'rgba(255, 204, 0, 1.0)')
-    add_body('Earth', 5.9742, 5, -220, 0, 0, 3, 'rgba(98,100,255, 1.0)')
-    add_body('Venus', 10.8685, 7, 300, 0, 0, 2.5, 'rgba(140, 98, 2, 1.0)')
+    # add_body(name,mass,size,color,px,py,vx,vy)
+    add_body('Sun', 1988.92, 100, 'rgba(255, 204, 0, 1.0)', 0, 0, 0, 0)
+    add_body('Earth', 5.9742, 5, 'rgba(98,100,255, 1.0)', -220, 0, 0, 3)
+    add_body('Moon', .5, 2, 'rgba(255,255,255, 1.0)', -230, 0, 0, 4)
+    add_body('Venus', 10.8685, 7, 'rgba(140, 98, 2, 1.0)', 300, 0, 0, 2.5)
 
 def add_body(name, mass, size, color, px=0, py=0, vx=0, vy=0):
     bod = Body()
