@@ -30,19 +30,14 @@ var SCALE = 250 / AU;
 
 //var sunBody = new Body('sun',(1.98892 * Math.pow(10,30)),[0,0],[0,0])
 //var earthBody = new Body('earth',(5.9742 * Math.pow(10,24)),[0,0],[0,0])
-var sunBody = new Body('sun',100,[0,0],[0,0])
-var earthBody = new Body('earth',10,[0,200],[0,0])
+
+var sunBody = new Body('sun',100,[0,0],[0,0],'rgba(255, 204, 0, 1.0)')
+var earthBody = new Body('earth',10,[200,0],[0,0], 'rgba(113, 170, 255, 1.0)')
 
 var bodies = [
   sunBody,earthBody
 ]
 console.log(bodies);
-
-var radii = {
-  //"sun": radius / 8,
-  "earthOrbit": 200//,
-  //"earth": radius / 32
-};
 
 // Space
 var svg = spacetime.append("svg")
@@ -51,36 +46,13 @@ var svg = spacetime.append("svg")
   .append("g")
     .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-// Sun
-svg.append("circle")
-  .attr("class", "sun")
-  .attr("r", bodies[0].radius)
-  .style("fill", "rgba(255, 204, 0, 1.0)");
-
-// Earth's orbit
-svg.append("circle")
-  .attr("class", "earthOrbit")
-  .attr("r", radii.earthOrbit)
-  .style("fill", "none")
-  .style("stroke", "rgba(255, 204, 0, 0.25)");
-
-// Current position of Earth in its orbit
-var earthOrbitPosition = d3.svg.arc()
-  .outerRadius(radii.earthOrbit + 1)
-  .innerRadius(radii.earthOrbit - 1)
-  .startAngle(0)
-  .endAngle(0);
-svg.append("path")
-  .attr("class", "earthOrbitPosition")
-  .attr("d", earthOrbitPosition)
-  .style("fill", "rgba(255, 204, 0, 0.75)");
-
-// Earth
-svg.append("circle")
-  .attr("class", "earth")
-  .attr("r", bodies[1].radius)
-  .attr("transform", "translate(0," + - bodies[1].pos[1] + ")")
-  .style("fill", "rgba(113, 170, 255, 1.0)");
+for (var i=0;i<bodies.length;i++){
+  svg.append("circle")
+    .attr("class",bodies[i].name)
+    .attr("r", bodies[i].radius)
+    .attr("transform", "translate(" + - bodies[i].pos[0] + "," + - bodies[i].pos[1] + ")")
+    .style("fill", bodies[i].color);
+}
 
 // Update the clock every second
 /*setInterval(function () {
