@@ -70,6 +70,11 @@ def update_info(step, bodies):
         print(s)
     print()
 
+# def log_normalize_bodies():
+#     for body in all_bodies:
+
+
+
 def update_bodies():
     # TODO implmement Barnes-Hut grouping algorithm at start of every loop
     # quad_tree = bh_group()
@@ -77,9 +82,6 @@ def update_bodies():
     timestep = 24*3600  # One day
 
     step = 1
-
-    step += 1
-
     force = {}
     for body in all_bodies:
         # Add up all of the forces exerted on 'body'.
@@ -104,7 +106,6 @@ def update_bodies():
         # Update positions
         body.px += body.vx # * timestep
         body.py += body.vy # * timestep
-
 
 
 def build_bodies():
