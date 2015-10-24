@@ -13,7 +13,6 @@ body {
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="http://d3js.org/d3.v3.min.js"></script>
-<script src="body.js"></script>
 
 <script>
 
@@ -30,7 +29,7 @@ var svg = spacetime.append("svg")
     .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
 $.getJSON( "/get_all_bodies", function( data ) {
-  console.log(data);
+  // console.log(data);
   for (var i=0;i<data.length;i++){
     svg.append("circle")
       .attr("class",data[i].name)
@@ -38,38 +37,17 @@ $.getJSON( "/get_all_bodies", function( data ) {
       .attr("transform", "translate(" + - data[i].px + "," + - data[i].py + ")")
       .style("fill", data[i].color);
   }
-  /*var items = [];
-  $.each( data, function( key, val ) {
-    items.push( "<li id='" + key + "'>" + val + "</li>" );
-  });
-
-  $( "<ul/>", {
-    "class": "my-new-list",
-    html: items.join( "" )
-  }).appendTo( "body" );*/
 });
-
-/*for (var i=0;i<bodies.length;i++){
-  svg.append("circle")
-    .attr("class",bodies[i].name)
-    .attr("r", bodies[i].radius)
-    .attr("transform", "translate(" + - bodies[i].pos[0] + "," + - bodies[i].pos[1] + ")")
-    .style("fill", bodies[i].color);
-}*/
 
 // Update the clock every second
 setInterval(function () {
 
-  d3.transition().tween("orbit", function () {
+  /*d3.transition().tween("orbit", function () {
     return function (t) {
-      //for (var i=0;i<bodies.length;i++){
-
-          //d3.select("."+bodies[i].name)
-          //  .attr("transform", "translate(" + - bodies[i].pos[0] + "," + - bodies[i].pos[1] + ")")
-
-        //}
-      }
-    });
+      $.getJSON( "/update_all_bodies", function( data ) {
+      });
+    }
+  });*/
 }, 16);
 
 
