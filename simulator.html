@@ -10,11 +10,12 @@ body {
 
 </style>
 <body>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="body.js"></script>
-<script>
 
-var now = d3.time.year.floor(new Date());
+<script>
 
 var spacetime = d3.select('body');
 var width = 960,
@@ -56,7 +57,6 @@ for (var i=0;i<bodies.length;i++){
 
 // Update the clock every second
 setInterval(function () {
-  var interpolateEarthOrbitPosition = d3.interpolate(earthOrbitPosition.endAngle()(), (2 * Math.PI * d3.time.hours(d3.time.year.floor(now), now).length / d3.time.hours(d3.time.year.floor(now), d3.time.year.ceil(now)).length));
 
   d3.transition().tween("orbit", function () {
     return function (t) {

@@ -2,7 +2,7 @@
 //var D = Math.pow(10,28);
 var D = 1;
 
-// name: string, 
+// name: string,
 // mass: int
 // pos: array of 2 ints
 // vel: array of 2 ints

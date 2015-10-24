@@ -110,11 +110,11 @@ def loop(bodies):
 
 
 def run():
-    print "asdfasd"
     sun = Body()
     sun.name = 'Sun'
     sun.mass = 1.98892 * 10**30
     sun.size = sun.mass / (10 ** 28)
+    sun.color = 'rgba(255, 204, 0, 1.0)'
 
     earth = Body()
     earth.name = 'Earth'
@@ -122,14 +122,15 @@ def run():
     earth.size = earth.mass / (10 ** 28)
     earth.px = -1*AU
     earth.vy = 29.783 * 1000
+    sun.color = 'rgba(113, 170, 255, 1.0)'
 
     # Venus parameters taken from
     # http://nssdc.gsfc.nasa.gov/planetary/factsheet/venusfact.html
-    venus = Body()
-    venus.name = 'Venus'
-    venus.mass = 4.8685 * 10**24
-    venus.size = venus.mass / (10 ** 28)
-    venus.px = 0.723 * AU
-    venus.vy = -35.02 * 1000
+    # venus = Body()
+    # venus.name = 'Venus'
+    # venus.mass = 4.8685 * 10**24
+    # venus.size = venus.mass / (10 ** 28)
+    # venus.px = 0.723 * AU
+    # venus.vy = -35.02 * 1000
 
-    loop([sun, earth, venus])
+    loop([sun, earth])
