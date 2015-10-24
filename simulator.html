@@ -41,7 +41,8 @@ $.getJSON( "/get_all_bodies", function( data ) {
 
 // 30 fps
 setInterval(function () {
-      $.getJSON( "/update_all_bodies", function( data ) {
+      var screenDim = {"width":$(window).width(), "height":$(window).width()}
+      $.getJSON( "/update_all_bodies", screenDim, function( data ) {
         for (var i=0;i<data.length;i++){
           $("#"+data[i].name).attr("transform", "translate(" + - data[i].px + "," + - data[i].py + ")");
         }
