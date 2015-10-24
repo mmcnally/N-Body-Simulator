@@ -108,10 +108,17 @@ def loop(bodies):
             body.vy += fy / body.mass # * timestep
 
             # Update positions
+<<<<<<< HEAD
             body.px += body.vx # * timestep
             body.py += body.vy # * timestep
 
 
+=======
+            body.px += body.vx * timestep
+            body.py += body.vy * timestep
+
+
+>>>>>>> 8aa830fd1cc175253e8f0a3d1b99f387b58da2d0
 def update_bodies():
     # TODO implmement Barnes-Hut grouping algorithm at start of every loop
     # quad_tree = bh_group()
@@ -119,7 +126,11 @@ def update_bodies():
     timestep = 24*3600  # One day
 
     step = 1
+<<<<<<< HEAD
 
+=======
+
+>>>>>>> 8aa830fd1cc175253e8f0a3d1b99f387b58da2d0
     # update_info(step)
     step += 1
 
@@ -187,13 +198,20 @@ def build_bodies():
     # venus.px = 0.723 * AU
     # venus.vy = -35.02 * 1000
 
+def add_body(name, mass, size, px, py, vx, vy, color):
+    bod = Body()
+    bod.name = name
+    bod.mass = mass
+    bod.size = size
+    bod.px = px
+    bod.py = py
+    bod.vx = vx
+    bod.vy = vy
+    bod.color = color
+    all_bodies.append(bod)
+
 def get_bodies():
     return all_bodies
 
 def update():
-    # if len(all_bodies) > 0:
-        # bodies have been initialized
-        update_bodies()
-    # else:
-        # need to create the bodies
-        # build_bodies()
+    update_bodies()
