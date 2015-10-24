@@ -2,6 +2,7 @@
 
 import math
 from turtle import *
+import turtle
 
 # The gravitational constant G
 G = 6.67428e-11
@@ -9,6 +10,7 @@ G = 6.67428e-11
 # Assumed scale: 100 pixels = 1AU.
 AU = (149.6e6 * 1000)     # 149.6 million km, in meters.
 SCALE = 250 / AU
+turtle.bgcolor('#111')
 
 class Body(Turtle):
     """Subclass of Turtle representing a gravitationally-acting body.
@@ -18,12 +20,12 @@ class Body(Turtle):
     vx, vy: x, y velocities in m/s
     px, py: x, y positions in m
     """
-    
+
     name = 'Body'
     mass = None
     vx = vy = 0.0
     px = py = 0.0
-    
+
     def attraction(self, other):
         """(Body): (fx, fy)
 
@@ -58,7 +60,7 @@ class Body(Turtle):
 
 def update_info(step, bodies):
     """(int, [Body])
-    
+
     Displays information about the status of the simulation.
     """
     print('Step #{}'.format(step))
@@ -75,7 +77,7 @@ def loop(bodies):
     positions of all the provided bodies.
     """
     timestep = 24*3600  # One day
-    
+
     for body in bodies:
         body.penup()
         body.hideturtle()
@@ -114,6 +116,7 @@ def loop(bodies):
 
 
 def main():
+    # bgcolor('black')
     sun = Body()
     sun.name = 'Sun'
     sun.mass = 1.98892 * 10**30
