@@ -112,8 +112,7 @@ def build_bodies():
     add_body('Earth', 5.9742, 5, -220, 0, 0, 3, 'rgba(98,100,255, 1.0)')
     add_body('Venus', 10.8685, 7, 300, 0, 0, 2.5, 'rgba(140, 98, 2, 1.0)')
 
-
-def add_body(name, mass, size, px, py, vx, vy, color):
+def add_body(name, mass, size, color, px=0, py=0, vx=0, vy=0):
     bod = Body()
     bod.name = name
     bod.mass = mass
