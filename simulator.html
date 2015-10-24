@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+body {
+  background: #222;
+  font-family: sans-serif;
+  font-style: italic;
+}
+
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="body.js"></script>
+<script>
+
+var now = d3.time.year.floor(new Date());
+
+var spacetime = d3.select('body');
+var width = 960,
+    height = 500,
+    radius = Math.min(width, height);
+
+// The gravitational constant G
+var G = 6.67428*Math.pow(10,-11);
+
+// Assumed scale: 100 pixels = 1AU.
+var AU = (149.6*Math.pow(10,6) * 1000);
+var SCALE = 250 / AU;
+
+//var sunBody = new Body('sun',(1.98892 * Math.pow(10,30)),[0,0],[0,0])
+//var earthBody = new Body('earth',(5.9742 * Math.pow(10,24)),[0,0],[0,0])
+var sunBody = new Body('sun',100,[0,0],[0,0])
+var earthBody = new Body('earth',10,[0,200],[0,0])
+
+var bodies = [
+  sunBody,earthBody
+]
+console.log(bodies);
+
+var radii = {
+  //"sun": radius / 8,
+  "earthOrbit": 200//,
+  //"earth": radius / 32
+};
+
+// Space
+var svg = spacetime.append("svg")
+  .attr("width", width)
+  .attr("height", height)
+  .append("g")
+    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+// Sun
+svg.append("circle")
+  .attr("class", "sun")
+  .attr("r", bodies[0].radius)
+  .style("fill", "rgba(255, 204, 0, 1.0)");
+
+// Earth's orbit
+svg.append("circle")
+  .attr("class", "earthOrbit")
+  .attr("r", radii.earthOrbit)
+  .style("fill", "none")
+  .style("stroke", "rgba(255, 204, 0, 0.25)");
+
+// Current position of Earth in its orbit
+var earthOrbitPosition = d3.svg.arc()
+  .outerRadius(radii.earthOrbit + 1)
+  .innerRadius(radii.earthOrbit - 1)
+  .startAngle(0)
+  .endAngle(0);
+svg.append("path")
+  .attr("class", "earthOrbitPosition")
+  .attr("d", earthOrbitPosition)
+  .style("fill", "rgba(255, 204, 0, 0.75)");
+
+// Earth
+svg.append("circle")
+  .attr("class", "earth")
+  .attr("r", bodies[1].radius)
+  .attr("transform", "translate(0," + - bodies[1].pos[1] + ")")
+  .style("fill", "rgba(113, 170, 255, 1.0)");
+
+// Update the clock every second
+/*setInterval(function () {
+  now = new Date();
+
+  var interpolateEarthOrbitPosition = d3.interpolate(earthOrbitPosition.endAngle()(), (2 * Math.PI * d3.time.hours(d3.time.year.floor(now), now).length / d3.time.hours(d3.time.year.floor(now), d3.time.year.ceil(now)).length));
+
+  d3.transition().tween("orbit", function () {
+    return function (t) {
+      // Animate Earth orbit position
+      d3.select(".earthOrbitPosition")
+        .attr("d", earthOrbitPosition.endAngle(interpolateEarthOrbitPosition(t)));
+
+      // Transition Earth
+      d3.select(".earth")
+        .attr("transform", "translate(" + radii.earthOrbit * Math.sin(interpolateEarthOrbitPosition(t) - earthOrbitPosition.startAngle()()) + "," + -radii.earthOrbit * Math.cos(interpolateEarthOrbitPosition(t) - earthOrbitPosition.startAngle()()) + ")");
+
+      };
+  });
+}, 1000);*/
+
+
+
+</script>

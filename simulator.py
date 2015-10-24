@@ -80,6 +80,7 @@ def loop(bodies):
     positions of all the provided bodies.
     """
     # TODO implmement Barnes-Hut grouping algorithm at start of every loop
+    quad_tree = b_h_group()
 
     timestep = 24*3600  # One day
 
