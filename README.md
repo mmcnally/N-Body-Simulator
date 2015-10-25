@@ -8,3 +8,8 @@ methodology of programming and effectively reduces the runtime complexity to O(N
 ## Functionality
 
 ### Creating new bodies
+
+To create a new body simply click the screen. More control over the creation of bodies is available to the users. To select the size of the
+new body use the range input on the top left of the screen. To set the new body's velocity click and drag the mouse a bit!
+
+Practice makes perfect!
