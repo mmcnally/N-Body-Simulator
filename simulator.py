@@ -63,18 +63,6 @@ class Body():
         fy = math.sin(theta) * f
         return fx, fy
 
-def update_info(step, bodies):
-    """(int, [Body])
-
-    Displays information about the status of the simulation.
-    """
-    print('Step #{}'.format(step))
-    for body in bodies:
-        s = '{:<8}  Pos.={:>6.2f} {:>6.2f} Vel.={:>10.3f} {:>10.3f}'.format(
-            body.name, body.px/AU, body.py/AU, body.vx, body.vy)
-        print(s)
-    print()
-
 # curCenter [x,y]
 def quarter_and_find_center(bodies,curCenter,xMult,yMult):
     maxX = maxY = 0
@@ -105,7 +93,6 @@ def build_quad_tree(center,bodies):
         else:
             childGroups["se"].append(body)
 
-    # print childGroups
     node = quadtree.Node(None)
 
     if len(childGroups["ne"]) > 0:
@@ -194,14 +181,10 @@ def traverse_quad_tree(body,root,total):
         else:
             total = traverse_quad_tree(body,child,total)
 
-    #print total
     return total
 
 def update_bodies():
-    # TODO implmement Barnes-Hut grouping algorithm at start of every loop
-
     quad_tree = build_quad_tree([0,0],all_bodies)
-    # pickle.dump( quad_tree, open( "qt.p", "wb" ) )
 
     timestep = 24*3600  # One day
 
@@ -213,18 +196,6 @@ def update_bodies():
 
         total = traverse_quad_tree(body,quad_tree,[0,0])
 
-        '''
-        for other in all_bodies:
-
-            # Don't calculate the body's attraction to itself
-            if body is other: # TODO instead of looping through every body this loop should go through all the Barnes-Hut groups, recursing appropriately
-                continue
-
-            fx, fy = body.attraction(other)
-
-            total_fx += fx
-            total_fy += fy
-        '''
         # Record the total force exerted.
         force[body] = (total[0], total[1])
 

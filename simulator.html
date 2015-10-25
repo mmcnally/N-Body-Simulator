@@ -7,9 +7,15 @@ body {
   font-family: sans-serif;
   font-style: italic;
 }
+#bodySize{
+
+}
 
 </style>
 <body>
+
+<input id="bodySize" type="range" min="1" max="50" value="5" step=".5"></input>
+
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="http://d3js.org/d3.v3.min.js"></script>
@@ -43,6 +49,7 @@ $.getJSON( "/get_all_bodies", function( data ) {
 
 setInterval(function () {
       $.getJSON( "/update_all_bodies/"+$(window).width()+"/"+$(window).height(), function( data ) {
+
         for (var i=0;i<data.length;i++){
           $("#"+data[i].name).attr("transform", "translate(" + - data[i].px + "," + - data[i].py + ")");
         }
@@ -60,4 +67,39 @@ setInterval(function () {
 
     $("#observedUniverse").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
   })
+</script>
+
+<script>
+  document.getElementById('universe').addEventListener('click', function() {
+
+  })
+
+  firstXPos = 0;
+  firstYPos = 0;
+  $( "#universe" ).mousedown(function() {
+    firstXPos = event.pageX;
+    firstYPos = event.pageY;
+  });
+
+  $( "#universe" ).mouseup(function() {
+    xp = ($(window).width()/2) - firstXPos
+    yp = ($(window).height()/2) - firstYPos
+
+    var secondXPos = event.pageX;
+    var secondYPos = event.pageY;
+
+    xv = firstXPos - secondXPos
+    yv = firstYPos - secondYPos
+
+    size = document.getElementById("bodySize").value
+
+    $.getJSON( "/add_body/"+xp+"/"+yp+"/"+xv+"/"+yv+"/"+size, function( data ) {
+      svg.append("circle")
+        .attr("id",data.name)
+        .attr("class",data.name)
+        .attr("r", data.size)
+        .attr("transform", "translate(" + - data.px + "," + - data.py + ")")
+        .style("fill", data.color);
+    });
+  });
 </script>
