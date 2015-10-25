@@ -183,7 +183,7 @@ def too_far(body,other):
 
 def traverse_quad_tree(body,root,total):
     for child in root.children.itervalues():
-        print child
+        #rint child
         if child == None or child.data is body:
             continue
 
@@ -194,7 +194,7 @@ def traverse_quad_tree(body,root,total):
         else:
             total = traverse_quad_tree(body,child,total)
 
-    print total
+    #print total
     return total
 
 def update_bodies():
@@ -243,11 +243,9 @@ def build_bodies():
     # add_body(name,mass,size,color,px,py,vx,vy)
     add_body('Sun', 1988.92, 100, 'rgba(255, 204, 0, 1.0)', 0, 0, -.01, 0)
     add_body('Earth', 5.9742, 5, 'rgba(98,100,255, 1.0)', -220, 0, 0, 3)
-    add_body('Earth1', 5.9742, 5, 'rgba(98,100,255, 1.0)', -210, 10, .75, 3)
-    add_body('Earth2', 5.9742, 5, 'rgba(98,100,255, 1.0)', -200, 20, .5, 3)
-    add_body('Earth3', 5.9742, 5, 'rgba(98,100,255, 1.0)', -230, 30, .25, 3)
     add_body('Moon', .5, 1, 'rgba(255,255,255, 1.0)', -230, 0, 0, 3.75)
     add_body('Venus', 10.8685, 7, 'rgba(140, 98, 2, 1.0)', 300, 0, 0, 2.5)
+    add_body('mars', 3.2, 2.5, 'rgba(0, 0, 0, 1.0)', 205, 0, 1, 2.5)
 
 def add_body(name, mass, size, color, px=0, py=0, vx=0, vy=0):
     bod = Body()
