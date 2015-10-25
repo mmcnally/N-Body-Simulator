@@ -58,6 +58,20 @@ def add_body(xPos,yPos,xVel,yVel,size):
 
     return json.dumps({"name":body.name, "px":body.px, "py":body.py, "size":body.size, "color":body.color})
 
+@app.route('/reset_bodies')
+def reset_bodies():
+
+    bodies = simulator.get_bodies()
+
+    all_bodies_Ids = []
+    for body in bodies:
+        all_bodies_Ids.append({"name":body.name})
+
+    simulator.all_bodies = [];
+
+    return json.dumps(all_bodies_Ids)
+
+
 @app.route('/<path:path>')
 def index(path):
     return send_from_directory('',path)

@@ -36,6 +36,10 @@ var svg = spacetime.append("svg")
     .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
 $.getJSON( "/get_all_bodies", function( data ) {
+  build_all_bodies_svg(data);
+});
+
+var build_all_bodies_svg = function (data){
   for (var i=0;i<data.length;i++){
     svg.append("circle")
       .attr("id",data[i].name)
@@ -43,9 +47,8 @@ $.getJSON( "/get_all_bodies", function( data ) {
       .attr("r", data[i].size)
       .attr("transform", "translate(" + - data[i].px + "," + - data[i].py + ")")
       .style("fill", data[i].color);
-  }
-});
-
+    }
+};
 
 setInterval(function () {
       $.getJSON( "/update_all_bodies/"+$(window).width()+"/"+$(window).height(), function( data ) {
@@ -55,6 +58,22 @@ setInterval(function () {
         }
       });
 }, 32); // 30 fps = 32, 60 fps = 16
+
+
+$(window).keyup(function(e) {
+  if (e.keyCode == 27) {
+      $.getJSON( "/reset_bodies", function( data ) {
+
+        for (var i=0;i<data.length;i++){
+          var element = $('#'+data[i].name);
+          element.remove();
+        }
+        $.getJSON( "/get_all_bodies", function( data ) {
+          build_all_bodies_svg(data);
+        });
+      });
+    }
+});
 </script>
 
 <script>
@@ -70,10 +89,6 @@ setInterval(function () {
 </script>
 
 <script>
-  document.getElementById('universe').addEventListener('click', function() {
-
-  })
-
   firstXPos = 0;
   firstYPos = 0;
   $( "#universe" ).mousedown(function() {
@@ -102,4 +117,8 @@ setInterval(function () {
         .style("fill", data.color);
     });
   });
+</script>
+
+<script>
+
 </script>
