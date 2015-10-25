@@ -89,6 +89,9 @@ def quarter_and_find_center(bodies,curCenter,xMult,yMult):
 
     return [maxX/2,maxY/2]
 
+def calc_diagnal(center, new_center):
+    return math.sqrt( (new_center[0]-center[0])**2 + (new_center[1]-center[1])**2 )
+
 def build_quad_tree(center,bodies):
     childGroups = {"ne":[],"nw":[],"sw":[],"se":[]}
 
@@ -174,13 +177,13 @@ def build_quad_tree(center,bodies):
 
 def too_far(body,other):
     numerator = other.diagnal
-    denominator = quadtree.calc_diagnal([body.px,body.py],[other.CoMx,other.CoMy])
+    denominator = calc_diagnal([body.px,body.py],[other.CoMx,other.CoMy])
 
     return (numerator/denominator < THETA)
 
 def traverse_quad_tree(body,root,total):
-    total
-    for child in root.children:
+    for child in root.children.itervalues():
+        print child
         if child == None or child.data is body:
             continue
 
@@ -188,10 +191,10 @@ def traverse_quad_tree(body,root,total):
             fx, fy = body.attraction(child.data)
             total[0] += fx
             total[1] += fy
-            return total
         else:
             total = traverse_quad_tree(body,child,total)
 
+    print total
     return total
 
 def update_bodies():
@@ -208,7 +211,7 @@ def update_bodies():
         # Add up all of the forces exerted on 'body'.
         total_fx = total_fy = 0.0
 
-        traverse_quad_tree(body,quad_tree,[0,0])
+        total = traverse_quad_tree(body,quad_tree,[0,0])
 
         '''
         for other in all_bodies:
@@ -216,13 +219,14 @@ def update_bodies():
             # Don't calculate the body's attraction to itself
             if body is other: # TODO instead of looping through every body this loop should go through all the Barnes-Hut groups, recursing appropriately
                 continue
-        '''
+
             fx, fy = body.attraction(other)
+
             total_fx += fx
             total_fy += fy
-
+        '''
         # Record the total force exerted.
-        force[body] = (total_fx, total_fy)
+        force[body] = (total[0], total[1])
 
     # Update velocities based upon on the force.
     for body in all_bodies:
@@ -239,6 +243,9 @@ def build_bodies():
     # add_body(name,mass,size,color,px,py,vx,vy)
     add_body('Sun', 1988.92, 100, 'rgba(255, 204, 0, 1.0)', 0, 0, -.01, 0)
     add_body('Earth', 5.9742, 5, 'rgba(98,100,255, 1.0)', -220, 0, 0, 3)
+    add_body('Earth1', 5.9742, 5, 'rgba(98,100,255, 1.0)', -210, 10, .75, 3)
+    add_body('Earth2', 5.9742, 5, 'rgba(98,100,255, 1.0)', -200, 20, .5, 3)
+    add_body('Earth3', 5.9742, 5, 'rgba(98,100,255, 1.0)', -230, 30, .25, 3)
     add_body('Moon', .5, 1, 'rgba(255,255,255, 1.0)', -230, 0, 0, 3.75)
     add_body('Venus', 10.8685, 7, 'rgba(140, 98, 2, 1.0)', 300, 0, 0, 2.5)
 
