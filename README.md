@@ -8,7 +8,7 @@ the algorithm can utilize the center of mass and total mass of the nodes within 
 
 ## Set up
 
-This app needs all of dependencies to be installed as well as the static path to the N-Body-Simulator directory. More information about the path
+This app needs all its dependencies to be installed as well as the static path to the N-Body-Simulator directory. More information about the path
 is given when running the application.
 
 ## Running
