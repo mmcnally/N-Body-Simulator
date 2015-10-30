@@ -13,7 +13,7 @@ the algorithm can utilize the center of mass and total mass of the nodes within 
 - New Bodies
   - To create a new body <b>click</b>.
   - To create a new body with initial velocity <b>click and drag</b>.
-  - To set the size of new bodies, use the range slider on the top left of the screen.
+  - To set the size of new bodies, use the <B>range slider</B> on the top left of the screen.
 
 - To reset the universe hit the escape key.
 
