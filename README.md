@@ -8,7 +8,7 @@ the algorithm can utilize the center of mass and total mass of the nodes within 
 
 ## Set up
 
-This app needs all depended libraries to be installed as well as the static path to the N-Body-Simulator directory. More information about the path
+This app needs all of dependencies to be installed as well as the static path to the N-Body-Simulator directory. More information about the path
 is given when running the application.
 
 ## Running
@@ -26,5 +26,3 @@ Any errors that the application encounters will be printed to the console (inclu
   - To set the size of new bodies, use the <B>range slider</B> on the top left of the screen.
 
 - To reset the universe hit the escape key.
-
-#####Practice makes perfect!
