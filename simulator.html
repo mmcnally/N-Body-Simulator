@@ -2,125 +2,137 @@
 <meta charset="utf-8">
 <title>N-Body-Simulator</title>
 <link rel="shortcut icon" type="image/png" href="/favicon.ico"/>
+
 <style>
-
-body {
-  background: #222;
-  font-family: sans-serif;
-  font-style: italic;
-}
-#bodySize{
-
-}
-
+  body {
+    background: #222;
+    font-family: sans-serif;
+    font-style: italic;
+  }
 </style>
+
 <body>
+  <!-- body size range picker -->
+  <input id="bodySize" type="range" min="1" max="50" value="5" step=".5"></input>
 
-<input id="bodySize" type="range" min="1" max="50" value="5" step=".5"></input>
+  <!-- import the libs we need -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
 
+  <script>
+    var spacetime = d3.select('body');
+    // Get the width and height of the window (used to make the app fit the window)
+    var width = $(window).width()
+    var height = $(window).height()
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="http://d3js.org/d3.v3.min.js"></script>
+    // Space
+    var svg = spacetime.append("svg")
+      .attr("id","universe")
+      .attr("width", width)
+      .attr("height", height)
+      .append("g")
+        .attr("id","observedUniverse")
+        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-<script>
-
-var spacetime = d3.select('body');
-var width = $(window).width()
-var height = $(window).height()
-
-// Space
-var svg = spacetime.append("svg")
-  .attr("id","universe")
-  .attr("width", width)
-  .attr("height", height)
-  .append("g")
-    .attr("id","observedUniverse")
-    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-
-$.getJSON( "/get_all_bodies", function( data ) {
-  build_all_bodies_svg(data);
-});
-
-var build_all_bodies_svg = function (data){
-  for (var i=0;i<data.length;i++){
-    svg.append("circle")
-      .attr("id",data[i].name)
-      .attr("class",data[i].name)
-      .attr("r", data[i].size)
-      .attr("transform", "translate(" + - data[i].px + "," + - data[i].py + ")")
-      .style("fill", data[i].color);
-    }
-};
-
-setInterval(function () {
-      $.getJSON( "/update_all_bodies/"+$(window).width()+"/"+$(window).height(), function( data ) {
-
-        for (var i=0;i<data.length;i++){
-          $("#"+data[i].name).attr("transform", "translate(" + - data[i].px + "," + - data[i].py + ")");
-        }
-      });
-}, 32); // 30 fps = 32, 60 fps = 16
-
-
-$(window).keyup(function(e) {
-  if (e.keyCode == 27) {
-      $.getJSON( "/reset_bodies", function( data ) {
-
-        for (var i=0;i<data.length;i++){
-          var element = $('#'+data[i].name);
-          element.remove();
-        }
-        $.getJSON( "/get_all_bodies", function( data ) {
-          build_all_bodies_svg(data);
-        });
-      });
-    }
-});
-</script>
-
-<script>
-  $(window).resize(function() {
-    var width = $(window).width();
-    var height = $(window).height();
-
-    $("#universe").attr("width",width);
-    $("#universe").attr("height",height);
-
-    $("#observedUniverse").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-  })
-</script>
-
-<script>
-  firstXPos = 0;
-  firstYPos = 0;
-  $( "#universe" ).mousedown(function() {
-    firstXPos = event.pageX;
-    firstYPos = event.pageY;
-  });
-
-  $( "#universe" ).mouseup(function() {
-    xp = ($(window).width()/2) - firstXPos
-    yp = ($(window).height()/2) - firstYPos
-
-    var secondXPos = event.pageX;
-    var secondYPos = event.pageY;
-
-    xv = firstXPos - secondXPos
-    yv = firstYPos - secondYPos
-
-    size = document.getElementById("bodySize").value
-
-    $.getJSON( "/add_body/"+xp+"/"+yp+"/"+xv+"/"+yv+"/"+size, function( data ) {
-      svg.append("circle")
-        .attr("id",data.name)
-        .attr("class",data.name)
-        .attr("r", data.size)
-        .attr("transform", "translate(" + - data.px + "," + - data.py + ")")
-        .style("fill", data.color);
+    // calls the REST API to inilialize and get all body information and sends it to a function that draws it on the D3 chart
+    $.getJSON( "/get_all_bodies", function( data ) {
+      build_all_bodies_svg(data);
     });
-  });
-</script>
 
-<script>
 
-</script>
+    var build_all_bodies_svg = function (data){
+      // for all the planets in the returned data (all planets in the system)
+      for (var i=0;i<data.length;i++){
+        svg.append("circle") // create a circle for the planet
+          .attr("id",data[i].name) // assign it a unique id
+          .attr("class",data[i].name)
+          .attr("r", data[i].size) // set its radius to the size of the body
+          .attr("transform", "translate(" + - data[i].px + "," + - data[i].py + ")") // translate it to the correct position on the simulation
+          .style("fill", data[i].color); // set its color
+        }
+    };
+
+    // this is the update function. It updates the position of the bodies for each time-step of the model
+    setInterval(function () {
+        // calls the REST API to update the model and get the new planet positions
+          $.getJSON( "/update_all_bodies/"+$(window).width()+"/"+$(window).height(), function( data ) {
+            // for all the planets update their position
+            for (var i=0;i<data.length;i++){
+              $("#"+data[i].name).attr("transform", "translate(" + - data[i].px + "," + - data[i].py + ")"); // translate it to the correct position on the simulation
+            }
+          });
+    }, 32); // 30 fps = 32, 60 fps = 16
+
+    // key up listener
+    $(window).keyup(function(e) {
+      // keyCode == 27 is escape key
+      if (e.keyCode == 27) {
+          // calls the REST API remove all the bodies from the simulation
+          $.getJSON( "/reset_bodies", function( data ) {
+            // all the bodies are removed from the back-emd but need to be removed from the D3 chart
+            // for all bodies remove them from the chart using their unique id
+            for (var i=0;i<data.length;i++){
+              var element = $('#'+data[i].name);
+              element.remove();
+            }
+            // calls the REST API to inilialize and get all body information and sends it to a function that draws it on the D3 chart
+            $.getJSON( "/get_all_bodies", function( data ) {
+              build_all_bodies_svg(data);
+            });
+          });
+        }
+    });
+
+    // resize listener
+    $(window).resize(function() {
+      // get the new width and height of the window
+      var width = $(window).width();
+      var height = $(window).height();
+
+      // set the universe to be the full width of the window
+      $("#universe").attr("width",width);
+      $("#universe").attr("height",height);
+
+      // center the universe on screen
+      $("#observedUniverse").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+    })
+
+    /*
+      This portion of the script is used to add new bodies to the simulation
+        - firstXPos and firstYPos are where the body will be placed (where the mouse was when it was clicked DOWN).
+        - secondXPos and secondYPos are used to calculate initial velocity of the body. (where the mouse was whe it was released UP)
+    */
+    firstXPos = 0;
+    firstYPos = 0;
+    // on mouse down get the positon of the mouse (initial position of new body)
+    $( "#universe" ).mousedown(function() {
+      firstXPos = event.pageX;
+      firstYPos = event.pageY;
+    });
+    // on mouse up get the positon of the mouse (used to calculate initial valocity)
+    $( "#universe" ).mouseup(function() {
+      xp = ($(window).width()/2) - firstXPos
+      yp = ($(window).height()/2) - firstYPos
+
+      var secondXPos = event.pageX;
+      var secondYPos = event.pageY;
+
+      // velocity is based on distance from mousedown to mouse up
+      xv = firstXPos - secondXPos
+      yv = firstYPos - secondYPos
+
+      // get the size of the body from the range slider
+      size = document.getElementById("bodySize").value
+
+      // calls the REST API to create the new body and get its info to put on the D3 chart
+      $.getJSON( "/add_body/"+xp+"/"+yp+"/"+xv+"/"+yv+"/"+size, function( data ) {
+        svg.append("circle")
+          .attr("id",data.name)
+          .attr("class",data.name)
+          .attr("r", data.size)
+          .attr("transform", "translate(" + - data.px + "," + - data.py + ")")
+          .style("fill", data.color);
+      });
+    });
+  </script>
+</body>
