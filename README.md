@@ -6,6 +6,16 @@ runtime complexity this simulator makes use of the <a href="http://arborjs.org/d
 programming methodology to recursively break the planets into four groups each stored in a quad-tree. After recurring until every quadrant holds one or zero planets
 the algorithm can utilize the center of mass and total mass of the nodes within the quad-tree to effectively reduce the runtime complexity to O(NlogN).
 
+## Set up
+
+This app needs all depended libraries to be installed as well as the static path to the N-Body-Simulator directory. More information about the path
+is given when running the application.
+
+## Running
+
+To run the app navigate to the N-Body-Simulator directory in the terminal and run the command 'python app.py'.
+Any errors that the application encounters will be printed to the console (including instructions upon how to specify the directory of the application),
+
 ## Functionality
 
 ### Creating new bodies
