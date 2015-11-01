@@ -26,7 +26,22 @@ class Body():
     vx = vy = 0.0
     px = py = 0.0
 
-    # calculates the amount of attraction between a planet and "other" (either a planet or a node due to B&H)
+    """
+    This function calculates if the current body is far enough away from a group.
+    If it is far enough away the groups information (mass, center of mass) can be used,
+    instead of its composit planets information, to make the force calculation.
+    """
+    def too_far(self, other):
+        numerator = other.diagnal
+        denominator = calc_diagnal([self.px,self.py],[other.CoMx,other.CoMy])
+
+        # theta is a global threshold (how far does the body need to be away from the
+        # group before the group's information can be used)
+        return (numerator/denominator < THETA)
+
+
+    # calculates the amount of attraction between a planet and "other"
+    # (either a planet or a node due to B&H)
     def attraction(self, other):
 
         # Report an error if the other object is the same as this one.
@@ -62,18 +77,6 @@ def calc_diagnal(center, new_center):
     return math.sqrt( (new_center[0]-center[0])**2 + (new_center[1]-center[1])**2 )
 
 
-"""
-This function calculates if the current body is far enough away from a group. If it is far enough away the
-groups information (mass, center of mass) can be used, instead of its composit planets information, to make the
-force calculation.
-"""
-def too_far(body,other):
-
-    numerator = other.diagnal
-    denominator = calc_diagnal([body.px,body.py],[other.CoMx,other.CoMy])
-
-    # theta is a global threshold (how far does the body need to be away from the group before the group's information can be used)
-    return (numerator/denominator < THETA)
 
 
 '''

@@ -213,7 +213,7 @@ def traverse_quad_tree(body,root,total):
 
         # if the child is a body or is far enough away from the current body calculate force
         # TODO -- move too_far into either body of quadree
-        if child.data.name != "Body" or simulator.too_far(body,child):
+        if child.data.name != "Body" or body.too_far(child):
             # get force excerted
             # TODO -- move body out of simulator
             fx, fy = body.attraction(child.data)
