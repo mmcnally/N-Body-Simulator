@@ -74,9 +74,6 @@ def quarter_and_find_center(bodies,curCenter,xMult,yMult):
 
 
 
-
-
-
 '''
 This is part of our implementation of the Barnes and Hut Algorithm, a good description of how this algorihm works can be found here.
     http://arborjs.org/docs/barnes-hut
@@ -189,7 +186,6 @@ def traverse_quad_tree(body,root,total):
             continue
 
         # if the child is a body or is far enough away from the current body calculate force
-        # TODO -- move too_far into either body of quadree
         if child.data.name != "Body" or body.too_far(child):
             # get force excerted
             # TODO -- move body out of simulator
