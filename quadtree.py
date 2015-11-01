@@ -104,71 +104,16 @@ def build_quad_tree(center,bodies):
     # create the node of the quad-tree
     node = Node(None)
 
-    '''
-    All four of the if statements below do the same thing, but for different quadrants.
-    TODO: extract this functionality into a helper funtion in quadtree.py to remove redunancy (pass in what quadrant & other info needed)
-    '''
-    # if the length of the list of children for the quadrant is greater than 0 something needs to be done.
-    if len(childGroups["ne"]) > 0:
-        # if there is only one child in this quadrant
-        if len(childGroups["ne"]) == 1:
-            # get the respective quadrant's node's chilren from the tree
-            neNode = Node(childGroups["ne"])
-            # set the nodes data to the bodies data (and store the body itself)
-            neNode.data = childGroups["ne"][0]
-            neNode.mass = childGroups["ne"][0].mass
-            neNode.CoMx = childGroups["ne"][0].px
-            neNode.CoMy = childGroups["ne"][0].py
-        #otherwise find a new center, and create a new node, calculate it's diagnal length and recurse on this quadrant
-        else:
-            new_center = quarter_and_find_center(childGroups["ne"],center,1,1)
-            neNode = build_quad_tree(new_center,childGroups["ne"])
-            neNode.diagnal = neNode.calc_diagnal(center,new_center)
-        # set the child to the new node (either a planet or a group)
-        node.children["ne"] = neNode
 
-    # same as 1st if but for the north west quadrant
-    if len(childGroups["nw"]) > 0:
-        if len(childGroups["nw"]) == 1:
-            nwNode = Node(childGroups["nw"][0])
-            nwNode.data = childGroups["nw"][0]
-            nwNode.mass = childGroups["nw"][0].mass
-            nwNode.CoMx = childGroups["nw"][0].px
-            nwNode.CoMy = childGroups["nw"][0].py
-        else:
-            new_center = quarter_and_find_center(childGroups["nw"],center,-1,1)
-            nwNode = build_quad_tree(new_center,childGroups["nw"])
-            nwNode.diagnal = nwNode.calc_diagnal(center,new_center)
-        node.children["nw"] = nwNode
-
-    # same as 1st if but for the south west quadrant
-    if len(childGroups["sw"]) > 0:
-        if len(childGroups["sw"]) == 1:
-            swNode = Node(childGroups["sw"][0])
-            swNode.data = childGroups["sw"][0]
-            swNode.mass = childGroups["sw"][0].mass
-            swNode.CoMx = childGroups["sw"][0].px
-            swNode.CoMy = childGroups["sw"][0].py
-        else:
-            new_center = quarter_and_find_center(childGroups["sw"],center,-1,-1)
-            swNode = build_quad_tree(new_center,childGroups["sw"])
-            swNode.diagnal = swNode.calc_diagnal(center,new_center)
-        node.children["sw"] = swNode
-
-    # same as 1st if but for the south east quadrant
-    if len(childGroups["se"]) > 0:
-        if len(childGroups["se"]) == 1:
-            seNode = Node(childGroups["se"][0])
-            seNode.data = childGroups["se"][0]
-            seNode.mass = childGroups["se"][0].mass
-            seNode.CoMx = childGroups["se"][0].px
-            seNode.CoMy = childGroups["se"][0].py
-        else:
-            new_center = quarter_and_find_center(childGroups["se"],center,1,-1)
-            seNode = build_quad_tree(new_center,childGroups["se"])
-            seNode.diagnal = seNode.calc_diagnal(center,new_center)
-        node.children["se"] = seNode
-
+    # Recur into each of the 4 quadrants
+    # northeast quadrant
+    recur_into_quadrant(childGroups["ne"], node, center, "ne", 1, 1)
+    # northwest quadrant
+    recur_into_quadrant(childGroups["nw"], node, center, "nw", -1, 1)
+    # southwest quadrant
+    recur_into_quadrant(childGroups["sw"], node, center, "sw", -1, -1)
+    # southeast quadrant
+    recur_into_quadrant(childGroups["se"], node, center, "se", 1, -1)
 
 
     # after all recusion is completed, create the root node & its pseudo-body
@@ -188,6 +133,38 @@ def build_quad_tree(center,bodies):
     # return the root of the quad-tree
     return node
 
+
+
+
+
+
+'''
+NEW HELPER FOR build_quadtree
+bodies_in_quad: is a dict of children in quadrant quad_str of a child node
+par_nod: parent node
+quad_str: name of quadrant ("ne", "nw", "se", "sw")
+'''
+def recur_into_quadrant(bodies_in_quad, par_node, center, quad_str, xMult, yMult):
+    # if the length of the list of children for the quadrant is
+    # greater than 0 something needs to be done.
+    if len(bodies_in_quad) > 0:
+        # if there is only one child in this quadrant
+        if len(bodies_in_quad) == 1:
+            # get the respective quadrant's node's chilren from the tree
+            neNode = Node(bodies_in_quad)
+            # set the nodes data to the bodies data (and store the body itself)
+            neNode.data = bodies_in_quad[0]
+            neNode.mass = bodies_in_quad[0].mass
+            neNode.CoMx = bodies_in_quad[0].px
+            neNode.CoMy = bodies_in_quad[0].py
+        # otherwise find a new center, and create a new node,
+        # calculate it's diagnal length and recurse on this quadrant
+        else:
+            new_center = quarter_and_find_center(bodies_in_quad,center,xMult,yMult)
+            neNode = build_quad_tree(new_center,bodies_in_quad)
+            neNode.diagnal = neNode.calc_diagnal(center,new_center)
+        # set the child to the new node (either a planet or a group)
+        par_node.children[quad_str] = neNode
 
 
 
