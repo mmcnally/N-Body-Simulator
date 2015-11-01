@@ -6,18 +6,16 @@ import random
 import datetime
 import time
 import math
+import os
 
 import simulator
 
 '''
-YOU MUST ADD THE STATIC PATH TO THE 'N-Body-Simulator' directory IN ORDER FOR THIS APPLICATION TO FUNCTION
+Applications needs static path to 'N-Body-Simulator'
+directory in order to function properly
 '''
-STATIC_PATH = None # EXAMPLE: /Users/Computer/Copy/Hackathon/N-Body-Simulator
+STATIC_PATH = os.getcwd() # EXAMPLE: /Users/Computer/Copy/Hackathon/N-Body-Simulator
 
-
-'''
-THIS PATH NEEDS TO BE UPDATED TO MATCH YOUR STATIC PATH!!!
-'''
 app = Flask(__name__, static_url_path=STATIC_PATH)
 
 
@@ -103,9 +101,4 @@ def index(path):
 
 # runs the simulator
 if __name__ == '__main__':
-    if (STATIC_PATH == None):
-        print "\n ERROR: \n"
-        print " You must specify the path to this application for it to work.\n The path can be found by going to the N-Body-Simulator directory within the terminal and running the command: pwd.\n Put the returned string into the STATIC_PATH global variable in the top of app.py"
-        print "\n"
-    else:
         app.run()
