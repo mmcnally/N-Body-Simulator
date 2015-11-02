@@ -9,7 +9,10 @@ the algorithm can utilize the center of mass and total mass of the nodes within 
 ## Running
 
 To run the app navigate to the N-Body-Simulator directory in the terminal and run the command 'python app.py'.
-Any errors that the application encounters will be printed to the console.
+  - Any errors that the application encounters will be printed to the console.
+
+Go view the simulation after starting the app go to <a href="http://localhost:5000/simulator.html" title="Title" target="_blank" >http://localhost:5000/simulator.html</a>
+  - If you renamed the html file you must replace simulator.html in the URL.
 
 ## Functionality
 
